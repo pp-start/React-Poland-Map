@@ -29,9 +29,9 @@ React App that presents Poland map with detailed voivodeships
 ### Installation
 
 ```bash
-git clone git@github.com:pp-start/React-SMS-Notifications.git
+git clone git@github.com:pp-start/React-Poland-Map.git
 
-cd React-SMS-Notifications
+cd React-Poland-Map
 npm install
 
 ```
