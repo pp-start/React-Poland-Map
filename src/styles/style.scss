@@ -1,0 +1,340 @@
+// General
+
+$bgcolor: #FEF8E2;
+$textcolor: #222222;
+$fontsize: 16px;
+$border: 3px solid $textcolor;
+$padding: 10px 20px 10px 20px;
+
+@mixin default_text {
+    color: $textcolor;
+    font: {
+        family: 'Roboto';
+        size: $fontsize;
+        weight: 500;
+    }
+}
+
+@mixin text_header {
+    font: {
+        family: 'Roboto';
+        size: 30px;
+        weight: 700;
+    }
+}
+
+@mixin shadow {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(155, 155, 155, 1);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(155, 155, 155, 1);
+    box-shadow: 0px 0px 10px 0px rgba(155, 155, 155, 1);
+    border-radius: 10px;
+}
+
+@mixin button_shadow {
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.75);  
+}
+
+html {
+    box-sizing: border-box;
+    background-color: $bgcolor;
+    -webkit-tap-highlight-color:  rgba(255, 255, 255, 0); 
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    overscroll-behavior: contain;
+}
+
+body a  {
+    text-decoration: none;
+}
+
+#root, #main-container {
+    min-height: 100vh;
+}
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+}
+
+#main-wrapper  {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#app-outer-container  {
+    flex: 1;
+    display: flex;
+}
+
+#map-relative-container  {
+    padding: 25px;
+    max-width: 100%;
+    max-height: 100vh;
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#poland  {
+    width: 100%;
+    height: auto;
+    max-height: calc(100vh - 50px);
+    display: block;
+}
+
+.voivodeship  {
+    fill: #dbdbdb;
+    stroke:#373435;
+    stroke-width: 2;
+}
+
+.active-voivodeship  {
+    fill: #f1e9e9;
+}
+
+.city  {
+    stroke: #373435;
+    stroke-width: 4;
+    fill: transparent;
+    cursor: pointer;
+}
+
+.city-description-visible  {
+    transform: translateY(20px);
+}
+
+.city-description-hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    #map-relative-container  {
+        padding: 10px;
+    }
+
+    .city  {
+        r: 14px;
+    }
+
+    .city-description-visible  {
+        transform: translateY(10px);
+    }
+
+}
+
+// Infowindow
+
+#city-details-info-box  {
+    position: absolute;
+    background: #fff;
+    color: #111;
+    padding: 10px 14px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 8px rgba(0,0,0,.5);
+    white-space: nowrap;
+    z-index: 10;
+    user-select: none;
+}
+
+#city-details-info-box::after {
+    content: "";
+    position: absolute;
+    width: 0; height: 0;
+    border-style: solid;
+}
+
+// Top position
+
+.top-left  {
+    transform: translate(-24px, 24px);
+}
+
+.top-left::after  {
+    top: -12px;
+    left: 12px;
+    border-width: 0 12px 12px 12px;
+    border-color: transparent transparent #fff transparent;
+}
+
+.top-center  {
+    transform: translate(-50%, 24px);
+}
+
+.top-center::after  {
+    top: -12px;
+    left: calc(50% - 12px);
+    border-width: 0 12px 12px 12px;
+    border-color: transparent transparent #fff transparent;
+}
+
+.top-right  {
+    transform: translate(calc(-100% + 24px), 25%);
+}
+
+.top-right::after  {
+    top: -12px;
+    right: 12px;
+    border-width: 0 12px 12px 12px;
+    border-color: transparent transparent #fff transparent;
+}
+
+// Bottom position
+
+.bottom-left  {
+    transform: translate(-24px, calc(-100% - 24px));
+}
+
+.bottom-left::after  {
+    bottom: -12px;
+    left: 12px;
+    border-width: 12px 12px 0 12px;
+    border-color: #fff transparent transparent transparent;
+}
+
+.bottom-center  {
+    transform: translate(-50%, calc(-100% - 24px));
+}
+    
+.bottom-center::after  {
+    bottom: -12px;
+    left: calc(50% - 12px);
+    border-width: 12px 12px 0 12px;
+    border-color: #fff transparent transparent transparent;
+}
+
+.bottom-right  {
+    transform: translate(calc(-100% + 24px), calc(-100% - 24px));
+}
+
+.bottom-right::after  {
+    bottom: -12px;
+    right: 12px;
+    border-width: 12px 12px 0 12px;
+    border-color: #fff transparent transparent transparent;
+}
+
+// Middle position
+
+.middle-left  {
+    transform: translate(24px, -50%);
+}
+
+.middle-left::after  {
+    top: calc(50% - 12px);
+    left: -12px;
+    border-width: 12px 12px 12px 0;
+    border-color: transparent #fff transparent transparent;
+}
+
+.middle-right  {
+    transform: translate(calc(-100% - 24px), -50%);
+}
+
+.middle-right::after  {
+    top: calc(50% - 12px);
+    right: -12px;
+    border-width: 12px 0 12px 12px;
+    border-color: transparent transparent transparent #fff;
+}
+
+#city-details-button-wrapper  {
+    position: relative;
+}
+
+#city-details-close-button  {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+#city-details-heading  {
+    font-size: 16px;
+    text-align: center;
+}
+
+#city-details-link {
+    display: block;
+    margin: auto;
+    padding: 5px 10px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #fef8e2;
+    color: #2d2d2d;
+    position: relative;
+    transition: all .3s cubic-bezier(.2, 0, 0, 1);
+    z-index: 1;
+
+    &:after {
+        content: '';
+        display: block;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        right: 16px;
+        left: 16px;
+        background-color: #2d2d2d;
+        transition: all .3s cubic-bezier(.2, 0, 0, 1);
+        transform-origin: bottom center;
+        z-index: -1;
+    }
+  
+    &:hover {
+        color: #d6b665;
+
+        &:after {
+            right: 0;
+            left: 0;
+            height: 100%;
+        }
+
+    }
+
+}
+
+// Voivodeship view
+
+.voivodeship-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.overlay-content {
+    position: relative;
+    border-radius: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.voivodeship-svg {
+    width: 100%;
+    height: 100%
+}
